@@ -1,0 +1,13 @@
+{
+  "name": "save-to-mega",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jorge Haddad",
+  "devDependencies": {
+    "serverless-google-cloudfunctions-amazing": "^2.3.9"
+  }
+}

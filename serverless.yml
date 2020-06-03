@@ -1,0 +1,37 @@
+service: save-to-mega
+
+provider:
+  name: google
+  stage: prod
+  region: us-central1
+  project: tribal-artifact-263821
+  credentials: /Users/jorgejch/.gcloud/web-parser-service-admin-tribal-artifact-263821.json
+
+plugins:
+  - serverless-google-cloudfunctions-amazing
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+    - package.json
+    - package-lock.json
+    - .serverless/**
+    - .idea/**
+    - save_to_mega_vars.json
+
+functions:
+  upload_file_by_url_to_mega:
+    memorySize: 128
+    timeout: 60s
+    runtime: python37
+    handler: upload_file_by_url_to_mega
+    serviceAccount: save-to-mega-function@tribal-artifact-263821.iam.gserviceaccount.com
+    events:
+      - event:
+          eventType: providers/cloud.pubsub/eventTypes/topic.publish
+          resource: projects/tribal-artifact-263821/topics/save-to-mega
+    environment:
+      LOG_LEVEL: DEBUG
+      VARS_BUCKET: web-parser-vars
+      VARS_BLOB: save_to_mega_vars.json
